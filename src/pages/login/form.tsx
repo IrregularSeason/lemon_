@@ -43,14 +43,9 @@ export default function LoginForm() {
     setErrorMessage('');
     setLoading(true);
     axios
-      .post('/api/user/login', params)
-      .then((res) => {
-        const { status, msg } = res.data;
-        if (status === 'ok') {
-          afterLoginSuccess(params);
-        } else {
-          setErrorMessage(msg || t['login.form.login.errMsg']);
-        }
+      .post('/mock/user/login', params)
+      .then(() => {
+        afterLoginSuccess(params);
       })
       .finally(() => {
         setLoading(false);
@@ -58,6 +53,7 @@ export default function LoginForm() {
   }
 
   function onSubmitClick() {
+    location.hash = 'dashboard';
     formRef.current.validate().then((values) => {
       login(values);
     });

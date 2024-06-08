@@ -30,7 +30,7 @@ function DropContent() {
   function fetchSourceData(showLoading = true) {
     showLoading && setLoading(true);
     axios
-      .get('/api/message/list')
+      .get('/mock/message/list')
       .then((res) => {
         setSourceData(res.data);
       })
@@ -42,7 +42,7 @@ function DropContent() {
   function readMessage(data: MessageListType) {
     const ids = data.map((item) => item.id);
     axios
-      .post('/api/message/read', {
+      .post('/mock/message/read', {
         ids,
       })
       .then(() => {

@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { ConfigProvider } from '@arco-design/web-react';
 import zhCN from '@arco-design/web-react/es/locale/zh-CN';
 import enUS from '@arco-design/web-react/es/locale/en-US';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { HashRouter, Switch, Route } from 'react-router-dom';
 import axios from 'axios';
 import rootReducer from './store';
 import PageLayout from './layout';
@@ -39,7 +39,7 @@ function Index() {
       type: 'update-userInfo',
       payload: { userLoading: true },
     });
-    axios.get('/api/user/userInfo').then((res) => {
+    axios.get('/mock/user/userInfo').then((res) => {
       store.dispatch({
         type: 'update-userInfo',
         payload: { userInfo: res.data, userLoading: false },
@@ -50,8 +50,8 @@ function Index() {
   useEffect(() => {
     if (checkLogin()) {
       fetchUserInfo();
-    } else if (window.location.pathname.replace(/\//g, '') !== 'login') {
-      window.location.pathname = '/login';
+    } else if (window.location.hash.replace(/\//g, '') !== 'login') {
+      window.location.hash = '/login';
     }
   }, []);
 
@@ -67,7 +67,7 @@ function Index() {
   };
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <ConfigProvider
         locale={getArcoLocale()}
         componentConfig={{
@@ -91,7 +91,7 @@ function Index() {
           </GlobalContext.Provider>
         </Provider>
       </ConfigProvider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
