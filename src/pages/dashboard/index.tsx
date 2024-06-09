@@ -1,9 +1,10 @@
 import ImageUpload from '@/components/ImageUpload';
 import React, { useEffect } from 'react';
 import { useImageUpload } from './../../components/ImageUpload/index';
-import { Button, Form, Input } from '@arco-design/web-react';
+import { Button, Form, Input, Message } from '@arco-design/web-react';
 import { Product, publishProduct } from '@/service/dashboard';
 import { service } from '@/service';
+import cls from './index.module.less';
 
 export default function DashBoard() {
   const [form] = Form.useForm<Product>();
@@ -19,13 +20,19 @@ export default function DashBoard() {
   }, [form, imageUpload.imageUrl]);
 
   return (
-    <div style={{ background: '#fff', padding: 4, height: 480 }}>
+    <div className={cls['container']}>
       <Form
         form={form}
+        layout="vertical"
         onChange={(value, values) => {
           console.log(value, values);
         }}
-        onSubmit={(values) => publishProduct(values)}
+        onSubmit={(values) =>
+          publishProduct(values).then(() => {
+            Message.success('上传成功');
+            form.resetFields();
+          })
+        }
       >
         <Form.Item field={'cover'}>
           <ImageUpload {...imageUpload.props} />

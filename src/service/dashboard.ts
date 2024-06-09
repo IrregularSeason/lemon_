@@ -7,9 +7,11 @@ export const uploadImage = async (image: File): Promise<{ path: string }> => {
     return res.data
 }
 export interface Product {
+    id: number
     name: string;
     cover: string;
-    description: string
+    description: string;
+    price: number
 }
 export const publishProduct = async (product: Product) => {
     const res = await service.post('/products/add', product)
