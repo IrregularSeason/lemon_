@@ -8,9 +8,7 @@ import {
 } from '@arco-design/web-react';
 import { FormInstance } from '@arco-design/web-react/es/Form';
 import { IconLock, IconUser } from '@arco-design/web-react/icon';
-import React, { useEffect, useRef, useState } from 'react';
-import axios from 'axios';
-import useStorage from '@/utils/useStorage';
+import React, { useRef, useState } from 'react';
 import useLocale from '@/utils/useLocale';
 import locale from './locale';
 import styles from './style/index.module.less';
@@ -19,55 +17,21 @@ export default function LoginForm() {
   const formRef = useRef<FormInstance>();
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
-  const [loginParams, setLoginParams, removeLoginParams] =
-    useStorage('loginParams');
 
   const t = useLocale(locale);
 
-  const [rememberPassword, setRememberPassword] = useState(!!loginParams);
-
-  function afterLoginSuccess(params) {
-    // 记住密码
-    if (rememberPassword) {
-      setLoginParams(JSON.stringify(params));
-    } else {
-      removeLoginParams();
-    }
-    // 记录登录状态
-    localStorage.setItem('userStatus', 'login');
-    // 跳转首页
-    window.location.href = '/';
-  }
-
-  function login(params) {
+  function login() {
     setErrorMessage('');
     setLoading(true);
-    axios
-      .post('/mock/user/login', params)
-      .then(() => {
-        afterLoginSuccess(params);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    location.hash = 'dashboard';
   }
 
   function onSubmitClick() {
     location.hash = 'dashboard';
-    formRef.current.validate().then((values) => {
-      login(values);
+    formRef.current.validate().then(() => {
+      login();
     });
   }
-
-  // 读取 localStorage，设置初始值
-  useEffect(() => {
-    const rememberPassword = !!loginParams;
-    setRememberPassword(rememberPassword);
-    if (formRef.current && rememberPassword) {
-      const parseParams = JSON.parse(loginParams);
-      formRef.current.setFieldsValue(parseParams);
-    }
-  }, [loginParams]);
 
   return (
     <div className={styles['login-form-wrapper']}>
@@ -104,9 +68,7 @@ export default function LoginForm() {
         </Form.Item>
         <Space size={16} direction="vertical">
           <div className={styles['login-form-password-actions']}>
-            <Checkbox checked={rememberPassword} onChange={setRememberPassword}>
-              {t['login.form.rememberPassword']}
-            </Checkbox>
+            <Checkbox>{t['login.form.rememberPassword']}</Checkbox>
             <Link>{t['login.form.forgetPassword']}</Link>
           </div>
           <Button type="primary" long onClick={onSubmitClick} loading={loading}>

@@ -20,7 +20,6 @@ import {
   IconPoweroff,
   IconExperiment,
   IconDashboard,
-  IconInteraction,
   IconTag,
 } from '@arco-design/web-react/icon';
 import { useSelector, useDispatch } from 'react-redux';
@@ -195,7 +194,10 @@ function Navbar({ show }: { show: boolean }) {
           <li>
             <Dropdown droplist={droplist} position="br">
               <Avatar size={32} style={{ cursor: 'pointer' }}>
-                <img alt="avatar" src={userInfo.avatar} />
+                <img
+                  alt="avatar"
+                  src={'http://api.hanling.space/static/1717822738322.jpg'}
+                />
               </Avatar>
             </Dropdown>
           </li>

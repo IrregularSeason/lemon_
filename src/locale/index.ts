@@ -1,6 +1,6 @@
 const i18n = {
   'en-US': {
-    'menu.dashboard': 'Dashboard',
+    'menu.dashboard': 'Publish',
     'menu.dashboard.workplace': 'Workplace',
     'menu.user.info': 'User Info',
     'menu.user.setting': 'User Setting',
@@ -38,13 +38,14 @@ const i18n = {
     'navbar.search.placeholder': 'Please search',
   },
   'zh-CN': {
-    'menu.dashboard': '仪表盘',
+    'menu.dashboard': '商品发布',
     'menu.dashboard.workplace': '工作台',
     'menu.user.info': '用户信息',
     'menu.user.setting': '用户设置',
     'menu.user.switchRoles': '切换角色',
     'menu.user.role.admin': '管理员',
     'menu.user.role.user': '普通用户',
+    'menu.example': '商品列表',
     'navbar.logout': '退出登录',
     'settings.title': '页面配置',
     'settings.themeColor': '主题色',

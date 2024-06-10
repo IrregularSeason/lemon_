@@ -17,7 +17,7 @@ export const routes: IRoute[] = [
     key: 'dashboard',
   },
   {
-    name: 'Example',
+    name: 'menu.example',
     key: 'example',
   },
 ];
