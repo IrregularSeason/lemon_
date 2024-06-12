@@ -83,7 +83,7 @@ function ImageUpload(props: ImageUploadProps) {
           <div className="arco-upload-trigger-picture">
             <div className="arco-upload-trigger-picture-text">
               <IconPlus />
-              <div style={{ marginTop: 10, fontWeight: 600 }}>Upload</div>
+              <div style={{ marginTop: 10, fontWeight: 600 }}>上传图片</div>
             </div>
           </div>
         )}

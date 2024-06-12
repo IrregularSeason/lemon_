@@ -14,7 +14,7 @@ function Login() {
     <div className={styles.container}>
       <div className={styles.logo}>
         <Logo />
-        <div className={styles['logo-text']}>Arco Design Pro</div>
+        <div className={styles['logo-text']}>青柠二手坊</div>
       </div>
       <div className={styles.banner}>
         <div className={styles['banner-inner']}>
