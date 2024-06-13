@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Avatar,
   List,
   Message,
   Modal,
   ModalProps,
+  Tabs,
 } from '@arco-design/web-react';
-import { getProducts, removeProduct } from '@/service/example';
+import { removeProduct } from '@/service/example';
 import { Product } from '@/service/dashboard';
 import cls from './index.module.less';
 import { IconDelete } from '@arco-design/web-react/icon';
+import ProductList from '@/components/ProductList';
+import useProducts from '@/hooks/useProducts';
 
 const useDeleteModal = () => {
   const [visible, setVisible] = useState(false);
@@ -79,15 +82,10 @@ const useShowModel = () => {
 };
 
 function Example() {
-  const [products, setProducts] = useState<Product[]>([]);
+  const products = useProducts();
   const deleteModal = useDeleteModal();
   const showModal = useShowModel();
 
-  useEffect(() => {
-    getProducts().then((res) => {
-      setProducts(res.data);
-    });
-  }, []);
   return (
     <div className={cls['container']}>
       <Modal {...deleteModal.modalProps}>确认删除吗</Modal>
@@ -108,32 +106,46 @@ function Example() {
         )}
       </Modal>
 
-      <List
-        dataSource={products}
-        render={(item, index) => (
-          <List.Item
-            key={index}
-            actions={[
-              <span onClick={() => showModal.open(item)} key={index.toFixed(2)}>
-                查看
-              </span>,
-              <span className="list-demo-actions-icon" key={index.toFixed(2)}>
-                <IconDelete onClick={() => deleteModal.open(item.id)} />
-              </span>,
-            ]}
-          >
-            <List.Item.Meta
-              avatar={
-                <Avatar shape="square">
-                  <img src={item.cover} />
-                </Avatar>
-              }
-              title={item.name}
-              description={item.description}
-            />
-          </List.Item>
-        )}
-      />
+      <Tabs>
+        <Tabs.TabPane key={'list'} title={'列表'}>
+          <List
+            dataSource={products}
+            render={(item, index) => (
+              <List.Item
+                key={index}
+                actions={[
+                  <span
+                    onClick={() => showModal.open(item)}
+                    key={index.toFixed(2)}
+                  >
+                    查看
+                  </span>,
+                  <span key={index.toFixed(2)}>加购</span>,
+                  <span
+                    className="list-demo-actions-icon"
+                    key={index.toFixed(2)}
+                  >
+                    <IconDelete onClick={() => deleteModal.open(item.id)} />
+                  </span>,
+                ]}
+              >
+                <List.Item.Meta
+                  avatar={
+                    <Avatar shape="square">
+                      <img src={item.cover} />
+                    </Avatar>
+                  }
+                  title={item.name}
+                  description={item.description}
+                />
+              </List.Item>
+            )}
+          />
+        </Tabs.TabPane>
+        <Tabs.TabPane key={'card'} title={'卡片'}>
+          <ProductList products={products} show={showModal.open} />
+        </Tabs.TabPane>
+      </Tabs>
     </div>
   );
 }

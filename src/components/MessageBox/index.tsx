@@ -18,6 +18,7 @@ import {
 import useLocale from '../../utils/useLocale';
 import MessageList, { MessageListType } from './list';
 import styles from './style/index.module.less';
+import { getMessageList } from '@/mock/message-box';
 
 function DropContent() {
   const t = useLocale();
@@ -29,10 +30,11 @@ function DropContent() {
 
   function fetchSourceData(showLoading = true) {
     showLoading && setLoading(true);
-    axios
-      .get('/mock/message/list')
+    new Promise<MessageListType>((resolve) => {
+      resolve(getMessageList());
+    })
       .then((res) => {
-        setSourceData(res.data);
+        setSourceData(res);
       })
       .finally(() => {
         showLoading && setLoading(false);

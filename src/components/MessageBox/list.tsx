@@ -12,7 +12,7 @@ import useLocale from '../../utils/useLocale';
 import styles from './style/index.module.less';
 
 export interface MessageItemData {
-  id: string;
+  id: number;
   title: string;
   subTitle?: string;
   avatar?: string;

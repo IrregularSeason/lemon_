@@ -1,8 +1,9 @@
 import Mock from 'mockjs';
 import setupMock from '@/utils/setupMock';
+import { MessageItemData } from '@/components/MessageBox/list';
 
 const haveReadIds = [];
-const getMessageList = () => {
+export const getMessageList = (): MessageItemData[] => {
   return [
     {
       id: 1,
