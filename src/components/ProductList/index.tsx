@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, List } from '@arco-design/web-react';
 import cls from './index.module.less';
 
-export default function ProductList({ products, show }) {
+export default function ProductList({ products, show, hiddenExtra = false }) {
   return (
     <List
       grid={{
@@ -14,7 +14,12 @@ export default function ProductList({ products, show }) {
       dataSource={products}
       render={(item, index) => (
         <List.Item key={index}>
-          <Card title={item.name} extra={<span>想要</span>}>
+          <Card
+            title={item.name}
+            extra={
+              hiddenExtra ? null : <span onClick={() => show(item)}>想要</span>
+            }
+          >
             <div
               className={cls['product-card']}
               onClick={() => show(item)}

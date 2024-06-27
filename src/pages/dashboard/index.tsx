@@ -106,7 +106,7 @@ export default function DashBoard() {
           </div>
         }
       >
-        <ProductList products={products} show={() => 0} />
+        <ProductList products={products} show={() => 0} hiddenExtra />
       </Card>
     </div>
   );

@@ -67,6 +67,7 @@ const useShowModel = () => {
   const modalProps: ModalProps = {
     title: product?.name,
     visible,
+    okText: '购买',
     onOk,
     onCancel: close,
   };
@@ -106,7 +107,10 @@ function Example() {
         )}
       </Modal>
 
-      <Tabs>
+      <Tabs defaultActiveTab="card">
+        <Tabs.TabPane key={'card'} title={'卡片'}>
+          <ProductList products={products} show={showModal.open} />
+        </Tabs.TabPane>
         <Tabs.TabPane key={'list'} title={'列表'}>
           <List
             dataSource={products}
@@ -141,9 +145,6 @@ function Example() {
               </List.Item>
             )}
           />
-        </Tabs.TabPane>
-        <Tabs.TabPane key={'card'} title={'卡片'}>
-          <ProductList products={products} show={showModal.open} />
         </Tabs.TabPane>
       </Tabs>
     </div>
